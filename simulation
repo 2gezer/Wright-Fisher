@@ -33,11 +33,6 @@ function w_f(A,N)
       end
 
     end
-
-
-
-
+    save changes
 end
-gen_vec
-matrix[:,]
 end

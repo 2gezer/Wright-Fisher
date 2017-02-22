@@ -1,0 +1,56 @@
+using PyCall
+using PyPlot
+using Distributions
+using DataArrays
+
+
+N_rep = 1000
+t_max = 5000
+N = 100
+t_gen = zeros(N_rep, 1)
+A_fix = zeros(N_rep, t_max)
+#mean values of fixation in each simulation repitition
+X =[]
+#variance of fixation
+V=[]
+Y=[100,200,300,400,500,600,700,800,900,1000]
+
+
+function t(N)
+  for rep_ID in 1:N_rep
+    # Specify the initial condition
+    A_fix[rep_ID, 1] = N/2
+
+    for t in 2:t_max
+
+        p = A_fix[rep_ID, t-1]/N
+        A = rand(Binomial(N,p))
+        #Update
+        A_fix[rep_ID, t] = A
+        #println(A)
+
+        if A_fix[rep_ID, t] == 0.0 || A_fix[rep_ID, t] == N
+            t_gen[rep_ID] = t
+            break
+        end
+    end
+  end
+  push!(X,mean(t_gen))
+  push!(V,var(t_gen))
+end
+
+for i in 100:100:1000
+ t(i)
+end
+#=plot(Y,X)
+title("dependence of the mean value of A_type on Populationsize")
+xlabel("Populationsize N")
+ylabel("E(A)")
+=#
+min_t= minimum(floor(Int64,t_gen))
+max_t= maximum(floor(Int64,t_gen))
+
+h = PyPlot.plt[:hist](A_fix[:,min_t])
+title(["Histogram of evolution of A-type in generation:" middl])
+xlabel("Populationsize N")
+ylabel("A-type individuals ")

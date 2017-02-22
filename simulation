@@ -33,6 +33,6 @@ function w_f(A,N)
       end
 
     end
-    save changes
+    
 end
 end

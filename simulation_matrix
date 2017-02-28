@@ -28,8 +28,10 @@ function simulation(N,A)
        mutate = r(l)*l
        ev_matrix[rep,gen]=ev_matrix[rep,gen-1]+mutate
 
-       if ev_matrix[rep,gen] < 0 || ev_matrix[rep,gen] > N
+       if ev_matrix[rep,gen] < 0
          ev_matrix[rep,gen]=0
+       elseif ev_matrix[rep,gen] > N
+         ev_matrix[rep,gen]=N
          gen_vector[rep]= gen
          break
        else

@@ -1,0 +1,58 @@
+using PyPlot
+using Distributions
+
+a=(0;1)
+b=(1;0)
+generation = 500
+repetition =10
+
+gen_vector=zeros(repetition,1)
+ev_matrix= zeros(repetition,generation)
+
+#function for  getting -1 or 1
+function r(x)
+    x= rand()
+    if x>0.5
+      return 1
+    else return -1
+    end
+end
+
+function simulation(N,A)
+  ev_matrix[:,1] = N/2
+   for rep in 1:repetition
+     for gen in 2:generation
+       #add mutation
+       μ=0.02
+       l=rand(Poisson(μ*N))
+       mutate = r(l)*l
+       ev_matrix[rep,gen]=ev_matrix[rep,gen-1]+mutate
+
+       if ev_matrix[rep,gen] < 0 || ev_matrix[rep,gen] > N
+         ev_matrix[rep,gen]=0
+         gen_vector[rep]= gen
+         break
+       else
+        p= ev_matrix[rep,gen]/N
+        A= rand(Binomial(N,p))
+      end
+        #update state
+        ev_matrix[rep,gen]=A
+
+        #stop if extinction or fixation
+        if ev_matrix[rep,gen]==0 || ev_matrix[rep,gen]==N
+          gen_vector[rep]= gen
+          break
+        end
+      end
+    end
+  end
+
+    simulation(1000,300)
+
+for i in 1:10
+  while ev_matrix[i,:] !=0
+plot(ev_matrix[i,:])
+break
+end
+end

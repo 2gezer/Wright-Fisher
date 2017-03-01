@@ -70,3 +70,8 @@ end
 for i in 40:60
 plot(ev_matrix[i,:])
 end
+
+# #change NaN to zero if necessary
+# M=[NaN 3 4; 2 NaN 2; 1 NaN NaN]
+# a =copy(M)
+# a[isnan(a)]=0

@@ -49,7 +49,8 @@ function simulation(N,A)
       end
     end
   end
-
+teste ob es klappt
+oder nicht
     simulation(1000,300)
 
 for i in 1:10

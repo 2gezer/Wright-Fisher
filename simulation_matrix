@@ -3,8 +3,8 @@ using Distributions
 
 a=(0;1)
 b=(1;0)
-generation = 500
-repetition =10
+generation = 5000
+repetition =1000
 
 gen_vector=zeros(repetition,1)
 ev_matrix= zeros(repetition,generation)
@@ -17,7 +17,7 @@ function r(x)
     else return -1
     end
 end
-#simulate genetic drift with mutation and repeat 
+#simulate genetic drift with mutation and repeat
 function simulation(N,A)
   ev_matrix[:,1] = N/2
    for rep in 1:repetition
@@ -31,11 +31,14 @@ function simulation(N,A)
 
        #be sure 0<p<1
        if ev_matrix[rep,gen] < 0
-         ev_matrix[rep,gen:generation]=NaN
+         ev_matrix[rep,gen]=0
+         #no zero plot
+         ev_matrix[rep,gen+1:generation]=NaN
          gen_vector[rep]= gen
          break
        elseif ev_matrix[rep,gen] > N
-         ev_matrix[rep,gen:generation]=NaN
+         ev_matrix[rep,gen]= N
+         ev_matrix[rep,gen+1:generation]=NaN
          gen_vector[rep]= gen
          break
        end
@@ -47,17 +50,23 @@ function simulation(N,A)
         ev_matrix[rep,gen]=A
 
         #stop if extinction or fixation
-        if ev_matrix[rep,gen]==0 || ev_matrix[rep,gen]==N
-          ev_matrix[rep,gen:generation]=NaN
+        if ev_matrix[rep,gen]==0
+          ev_matrix[rep,gen+1:generation]=NaN
+          break
+        elseif ev_matrix[rep,gen]==N
+          ev_matrix[rep,gen+1:generation]=NaN
           gen_vector[rep]= gen
           break
         end
       end
     end
   end
-
-    simulation(100,30)
-
-for i in 1:10
+  #varying population size
+for i in 100:100:1000
+    simulation(i,300)
+    # to do: mean value of generation when fixation or extinction and hystogram
+end
+#plot
+for i in 40:60
 plot(ev_matrix[i,:])
 end

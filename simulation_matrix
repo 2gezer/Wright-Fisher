@@ -9,6 +9,10 @@ repetition =1000
 gen_vector=zeros(repetition,1)
 ev_matrix= zeros(repetition,generation)
 
+m_gen =[]
+err_gen=[]
+pop_size=collect(100:100:1000)
+
 #function for  getting -1 or 1
 function r(x)
     x= rand()
@@ -18,7 +22,7 @@ function r(x)
     end
 end
 #simulate genetic drift with mutation and repeat
-function simulation(N,A)
+function simulation(N)
   ev_matrix[:,1] = N/2
    for rep in 1:repetition
      for gen in 2:generation
@@ -52,6 +56,7 @@ function simulation(N,A)
         #stop if extinction or fixation
         if ev_matrix[rep,gen]==0
           ev_matrix[rep,gen+1:generation]=NaN
+          gen_vector[rep]= gen
           break
         elseif ev_matrix[rep,gen]==N
           ev_matrix[rep,gen+1:generation]=NaN
@@ -63,13 +68,32 @@ function simulation(N,A)
   end
   #varying population size
 for i in 100:100:1000
-    simulation(i,300)
-    # to do: mean value of generation when fixation or extinction and hystogram
+    simulation(i)
+    push!(m_gen,mean(gen_vector))
+    #standard deviation
+    push!(err_gen,std(gen_vector))
 end
-#plot
-for i in 40:60
-plot(ev_matrix[i,:])
-end
+# #plot ev_matrix
+# for i in 40:60
+# plot(ev_matrix[i,:])
+# end
+
+#plot mean value extinction/fixation against population size
+errorbar(pop_size,m_gen,err_gen)
+title("mean value of extinction/fixation dependending on Population size")
+xlabel("Population size N")
+ylabel("E(A)")
+
+#plot histogram
+min_t= minimum(floor(Int64,gen_vector))
+max_t= maximum(floor(Int64,gen_vector))
+evo_m = copy(ev_matrix)
+evo_m[isnan(evo_m)]=0
+h = PyPlot.plt[:hist](evo_m[:,max_t])
+title(["Histogram of evolution of A-type in generation:" ])
+xlabel("Populationsize N")
+ylabel("A-type individuals ")
+
 
 # #change NaN to zero if necessary
 # M=[NaN 3 4; 2 NaN 2; 1 NaN NaN]

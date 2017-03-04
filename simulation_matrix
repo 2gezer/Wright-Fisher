@@ -1,8 +1,6 @@
 using PyPlot
 using Distributions
 
-#a=(0;1)
-#b=(1;0)
 generation = 500
 repetition =100
 
@@ -13,14 +11,7 @@ m_gen =[]
 err_gen=[]
 pop_size=collect(100:100:1000)
 
-# #function for  getting -1 or 1
-# function r(x)
-#     x= rand()
-#     if x>0.5
-#       return 1
-#     else return -1
-#     end
-# end
+
 #simulate genetic drift with mutation and repeat
 function simulation(N)
   ev_matrix[:,1] = N/2
@@ -36,19 +27,6 @@ function simulation(N)
        mutate = b_p-a_p
         ev_matrix[rep,gen]=ev_matrix[rep,gen-1]+mutate
 
-       #be sure 0<p<1
-      #  if ev_matrix[rep,gen] < 0
-      #    ev_matrix[rep,gen]=0
-      #    #no zero plot
-      #    ev_matrix[rep,gen+1:generation]=NaN
-      #    gen_vector[rep]= gen
-      #    break
-      #  elseif ev_matrix[rep,gen] > N
-      #    ev_matrix[rep,gen]= N
-      #    ev_matrix[rep,gen+1:generation]=NaN
-      #    gen_vector[rep]= gen
-      #    break
-      #  end
        #genetic drift loop
         p= ev_matrix[rep,gen]/N
         A= rand(Binomial(N,p))
@@ -56,7 +34,7 @@ function simulation(N)
         #update state
         ev_matrix[rep,gen]=A
 
-        #stop if extinction or fixation
+        #count extinction/fixation
         if ev_matrix[rep,gen]==0 || ev_matrix[rep,gen]==N
           gen_vector[rep]= gen
         end
@@ -95,9 +73,3 @@ end
 # title(["Histogram of evolution of A-type in generation:" ])
 # xlabel("Populationsize N")
 # ylabel("A-type individuals ")
-
-
-# #change NaN to zero if necessary
-# M=[NaN 3 4; 2 NaN 2; 1 NaN NaN]
-# a =copy(M)
-# a[isnan(a)]=0

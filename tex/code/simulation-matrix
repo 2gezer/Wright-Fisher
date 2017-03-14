@@ -13,7 +13,7 @@ A_fix = zeros(N_rep, t_max)
 X =[]
 #variance of fixation
 V=[]
-Y=[100,200,300,400,500,600,700,800,900,1000]
+Y=collect(100:100:1000)
 
 
 function t(N)
@@ -36,21 +36,22 @@ function t(N)
     end
   end
   push!(X,mean(t_gen))
-  push!(V,var(t_gen))
+  push!(V,std(t_gen))
 end
 
 for i in 100:100:1000
  t(i)
 end
-#=plot(Y,X)
+# plot(A_fix[1,:])
+errorbar(Y,X,V)
 title("dependence of the mean value of A_type on Populationsize")
 xlabel("Populationsize N")
 ylabel("E(A)")
-=#
-min_t= minimum(floor(Int64,t_gen))
-max_t= maximum(floor(Int64,t_gen))
-
-h = PyPlot.plt[:hist](A_fix[:,min_t])
-title(["Histogram of evolution of A-type in generation:" middl])
-xlabel("Populationsize N")
-ylabel("A-type individuals ")
+#
+# min_t= minimum(floor(Int64,t_gen))
+# max_t= maximum(floor(Int64,t_gen))
+#
+# h = PyPlot.plt[:hist](A_fix[:,min_t])
+# title(["Histogram of evolution of A-type in generation:" middl])
+# xlabel("Populationsize N")
+# ylabel("A-type individuals ")

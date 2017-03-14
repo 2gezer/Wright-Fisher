@@ -37,14 +37,12 @@ function simulation(N)
         #count extinction/fixation
         if ev_matrix[rep,gen]==0 || ev_matrix[rep,gen]==N
           gen_vector[rep]= gen
+
         end
       end
     end
   end
   #varying population size
-
-simulation(100)
-
 
 # for i in 100:100:1000
 #     simulation(i)
@@ -52,24 +50,25 @@ simulation(100)
 #     #standard deviation
 #     push!(err_gen,std(gen_vector))
 # end
-
-#plot ev_matrix
-for i in 30:35
-plot(ev_matrix[i,:]/100)
-end
+simulation(100)
+# # plot ev_matrix
+# for i in 50:55
+# plot(ev_matrix[i,:]/100)
+# title("genetic drfit with mutation rate 0.001")
+# xlabel("generation number")
+# ylabel("A-type individuals")
+# end
 
 # #plot mean value extinction/fixation against population size
 # errorbar(pop_size,m_gen,err_gen)
 # title("mean value of extinction/fixation dependending on Population size")
 # xlabel("Population size N")
-# ylabel("E(A)")
-#
-# #plot histogram
-# min_t= minimum(floor(Int64,gen_vector))
-# max_t= maximum(floor(Int64,gen_vector))
-# evo_m = copy(ev_matrix)
-# evo_m[isnan(evo_m)]=0
-# h = PyPlot.plt[:hist](evo_m[:,max_t])
-# title(["Histogram of evolution of A-type in generation:" ])
-# xlabel("Populationsize N")
-# ylabel("A-type individuals ")
+# ylabel("generation")
+
+#plot histogram
+min_t= minimum(floor(Int64,gen_vector))
+max_t= maximum(floor(Int64,gen_vector))
+h = PyPlot.plt[:hist](ev_matrix[:,max_t])
+title(["Histogram of evolution of A-type in generation: " max_t])
+xlabel("population number")
+ylabel("A-type individuals ")

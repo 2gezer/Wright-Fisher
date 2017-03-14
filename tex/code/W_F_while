@@ -1,0 +1,28 @@
+using PyPlot
+using Distributions
+
+t_gen =[]
+A_fix = []
+function simulation(n)
+
+    function w_f(N,A)
+      A_gen = []
+      t=0
+      while 0<A<N
+        p = A/N
+        B = N-A
+        A_new = A/(B+A)
+        A = rand(Binomial(N,p))
+        t+=1
+        push!(A_gen,A_new)
+      end
+        push!(A_fix,A_gen)
+        push!(t_gen,t)
+        plot(A_gen)
+        return t
+      end
+    for i in 1:n
+      w_f(100,30)
+    end
+end
+simulation(5)

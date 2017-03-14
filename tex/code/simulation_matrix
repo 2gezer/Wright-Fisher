@@ -1,0 +1,74 @@
+using PyPlot
+using Distributions
+
+generation = 500
+repetition =100
+
+gen_vector=zeros(repetition,1)
+ev_matrix= zeros(repetition,generation)
+
+m_gen =[]
+err_gen=[]
+pop_size=collect(100:100:1000)
+
+
+#simulate genetic drift with mutation and repeat
+function simulation(N)
+  ev_matrix[:,1] = N/2
+   for rep in 1:repetition
+     for gen in 2:generation
+
+       #add mutation
+       μ=0.001
+       a=ev_matrix[rep,gen-1]
+       a_p=rand(Poisson(μ*a))
+       b=N-ev_matrix[rep,gen-1]
+       b_p=rand(Poisson(μ*b))
+       mutate = b_p-a_p
+        ev_matrix[rep,gen]=ev_matrix[rep,gen-1]+mutate
+
+       #genetic drift loop
+        p= ev_matrix[rep,gen]/N
+        A= rand(Binomial(N,p))
+
+        #update state
+        ev_matrix[rep,gen]=A
+
+        #count extinction/fixation
+        if ev_matrix[rep,gen]==0 || ev_matrix[rep,gen]==N
+          gen_vector[rep]= gen
+
+        end
+      end
+    end
+  end
+  #varying population size
+
+# for i in 100:100:1000
+#     simulation(i)
+#     push!(m_gen,mean(gen_vector))
+#     #standard deviation
+#     push!(err_gen,std(gen_vector))
+# end
+simulation(100)
+# # plot ev_matrix
+# for i in 50:55
+# plot(ev_matrix[i,:]/100)
+# title("genetic drfit with mutation rate 0.001")
+# xlabel("generation number")
+# ylabel("A-type individuals")
+# end
+
+# #plot mean value extinction/fixation against population size
+# errorbar(pop_size,m_gen,err_gen)
+# title("mean value of extinction/fixation dependending on Population size")
+# xlabel("Population size N")
+# ylabel("generation")
+
+#plot histogram
+min_t= minimum(floor(Int64,gen_vector))
+max_t= maximum(floor(Int64,gen_vector))
+h = PyPlot.plt[:hist](ev_matrix[:,max_t])
+title(["Histogram of evolution of A-type in generation: " max_t])
+xlabel("population number")
+ylabel("A-type individuals ")

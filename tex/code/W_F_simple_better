@@ -1,0 +1,58 @@
+using PyPlot
+using Distributions
+
+#populationsize
+N = 1000
+#how many generations
+N_gen_max= 10000
+#storedata
+
+
+#initial state
+A = 100
+B= N-A
+
+#frequencies of each type
+p = A/N
+q = 1-p
+
+
+function w_f(N,A)
+ #loop to compute possible A-type in each generation
+N_gen_max = 1000
+X=zeros(N_gen_max)
+collaps = []
+t=0
+
+ for i in 1:N_gen_max
+   p = A/N
+   B = N-A
+   X[i] = A/(B+A)
+   A = rand(Binomial(N,p))
+   if A==0 || A== N
+     t =i
+     push!(collaps,t)
+     println(collaps)
+     break
+   end
+
+ end
+ plot(X)
+ title("Genetic Drift")
+ xlabel("Generationnumber")
+ ylabel("p(A) = 30%")
+ return collaps
+end
+
+
+
+w_f(100,30)
+
+
+
+###for rep in 1:10
+ #run function and get output - > collapse and x
+ #w_f(100,30)
+ #savetime[rep] = collaps
+ #trajectories[:, rep] = X
+####

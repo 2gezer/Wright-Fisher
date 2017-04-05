@@ -19,38 +19,38 @@
 \usepackage{color}
 \usepackage[
 	colorlinks= false
-	            ]{hyperref} 	            
+	            ]{hyperref}
 \usepackage[left=3cm,right=3cm,top=1.5cm,bottom=2cm,includeheadfoot]{geometry}
 \usepackage{graphicx}
-\usepackage{setspace}
 \usepackage[doublespacing]{setspace}
+\usepackage[T1]{fontenc}
+\newcommand{\changefont}[3]{
+\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
 
-\usepackage[T1]{fontenc}\newcommand{\changefont}[3]{\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
-
-\makeatletter 
-\renewcommand\section{\@startsection 
-   {section}{1}{0mm}%         % name, ebene, einzug 
-   {2\baselineskip}%            % vor-abstand 
-   {1.5\baselineskip}%            % nach-abstand 
-   {\bfseries\sffamily\fontsize{22}{25} \selectfont \centering}%      % layout 
-   } 
-\makeatother 
-\makeatletter   \renewcommand{\raggedsection}{\centering}
-\renewcommand\subsection{\@startsection 
-   {subsection}{2}{10mm}%      % name, ebene, einzug 
-   {1,5\baselineskip}%            % vor-abstand 
-   {1\baselineskip}%            % nach-abstand 
-   {\bfseries\sffamily\Large \centering}%           % layout 
-   } 
+\makeatletter
+\renewcommand\section{\@startsection
+   {section}{1}{0mm}%         % name, ebene, einzug
+   {2\baselineskip}%            % vor-abstand
+   {1.5\baselineskip}%            % nach-abstand
+   {\bfseries\sffamily\fontsize{22}{25} \selectfont \centering}%      % layout
+   }
 \makeatother
-\makeatletter 
-\renewcommand\subsubsection{\@startsection 
-   {subsubsection}{0}{0mm}%         % name, ebene, einzug 
-   {1,5\baselineskip}%            % vor-abstand 
-   {1\baselineskip}%            % nach-abstand 
-   {\bfseries\sffamily\large}%      % layout 
-   } 
-\makeatother 
+\makeatletter   \renewcommand{\raggedsection}{\centering}
+\renewcommand\subsection{\@startsection
+   {subsection}{2}{10mm}%      % name, ebene, einzug
+   {1,5\baselineskip}%            % vor-abstand
+   {1\baselineskip}%            % nach-abstand
+   {\bfseries\sffamily\Large \centering}%           % layout
+   }
+\makeatother
+\makeatletter
+\renewcommand\subsubsection{\@startsection
+   {subsubsection}{0}{0mm}%         % name, ebene, einzug
+   {1,5\baselineskip}%            % vor-abstand
+   {1\baselineskip}%            % nach-abstand
+   {\bfseries\sffamily\large}%      % layout
+   }
+\makeatother
 
 
 
@@ -63,24 +63,24 @@
  \onehalfspacing
  \renewcommand{\raggedsection}{\centering}
 \begin{titlepage}
- \changefont{cmss}{c}{n}\selectfont    
+ \changefont{cmss}{c}{n}\selectfont
  \begin{figure}
   \begin{center}
    \Large{Department for Theoretical Physics Cologne University of Cologne} \\
-    \includegraphics[width=6cm]{logo.png} 
+    \includegraphics[width=6cm]{logo.png}
   \end{center}
  \end{figure}
   \begin{center}
-      
-  \end{center} 
+
+  \end{center}
 \end{titlepage}
 
 \tableofcontents
 \clearpage
  \section{}
   \subsection{Genetic drift}
-   
-   
+
+das ist erst der Anfang
 
 
 

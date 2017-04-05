@@ -1,0 +1,6 @@
+PWD /Users/sunshine/Documents/B_Th/github/Wright-Fisher/tex/latex
+INPUT /usr/local/texlive/2016/texmf.cnf
+INPUT /usr/local/texlive/2016/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2016/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT master.latexcfg
+OUTPUT master.log

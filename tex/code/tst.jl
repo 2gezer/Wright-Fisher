@@ -102,8 +102,25 @@ function gen_drift_m(M::Matrix, N::Integer,number::Integer)
   return M
 end
 
-#evaluate data for genetic drift with mutation
+#evaluate data for pure gentic drift
 function get_data_p(df::DataFrame)
+ if nrow(df) >0
+   deleterows!(df, 1:nrow(df))
+ end
+ for i in 100:100:1000
+    gen_drift_m(matrix_pure,i,10)
+     push!(df, [i floor(mean(generation_vector)) std(generation_vector)])
+   end
+
+   plt_m=plot(ev_data, x=ev_data[1], y=ev_data[2], ymin=ev_data[2]-ev_data[3], ymax=ev_data[2]+ev_data[3],
+        Geom.point, Geom.errorbar, Guide.title("meanvalue of generation for extinction/fixation depending on population size"), Guide.XLabel("population size"), Guide.YLabel("generation number"), blankTheme)
+   img= SVG("image/GenDrift_pure/mean.svg", 8inch, 6inch)
+   draw(img, plt_m)
+   return df
+end
+
+#for genetic drift with mutation
+function get_data_m(df::DataFrame)
  if nrow(df) >0
    deleterows!(df, 1:nrow(df))
  end
@@ -114,29 +131,12 @@ function get_data_p(df::DataFrame)
 
    plt_m=plot(ev_data, x=ev_data[1], y=ev_data[2], ymin=ev_data[2]-ev_data[3], ymax=ev_data[2]+ev_data[3],
         Geom.point, Geom.errorbar, Guide.title("meanvalue of generation for extinction/fixation depending on population size"), Guide.XLabel("population size"), Guide.YLabel("generation number"), blankTheme)
-   img= SVG("image/Gendrift_mutation/mean.svg", 8inch, 6inch)
+   img= PDF("image/GenDrift_mutation/mean.pdf", 8inch, 6inch)
    draw(img, plt_m)
    return df
 end
 
-#for pure gentic drift
-function get_data_m(df::DataFrame)
- if nrow(df) >0
-   deleterows!(df, 1:nrow(df))
- end
- for i in 100:100:1000
-    gen_drift_p(matrix_pure,i,10)
-     push!(df, [i floor(mean(generation_vector)) std(generation_vector)])
-   end
-
-   plt_m=plot(ev_data, x=ev_data[1], y=ev_data[2], ymin=ev_data[2]-ev_data[3], ymax=ev_data[2]+ev_data[3],
-        Geom.point, Geom.errorbar, Guide.title("meanvalue of generation for extinction/fixation depending on population size"), Guide.XLabel("population size"), Guide.YLabel("generation number"), blankTheme)
-   img= SVG("image/Gendrift_pure/mean.svg", 8inch, 6inch)
-   draw(img, plt_m)
-   return df
-end
-
-get_data(ev_data)
+get_data_m(ev_data)
 
 plot(ev_data, x="x2", Geom.density, Guide.title("Boxplot of mean value fixation occurs" , Guide.XLabel("population size"), blankTheme)
 f=convert(Array{Integer}, generation_vector)

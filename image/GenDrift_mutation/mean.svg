@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="203.2mm" height="152.4mm" viewBox="0 0 203.2 152.4"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<g class="plotroot xscalable yscalable" id="img-e8dd9723-1">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#000000" stroke="#000000" stroke-opacity="0.000" id="img-e8dd9723-2">
+    <text x="109.75" y="140.79" text-anchor="middle" dy="0.6em">population size</text>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#000000" id="img-e8dd9723-3">
+    <text x="23.31" y="134.11" text-anchor="middle" dy="0.6em">0</text>
+    <text x="66.53" y="134.11" text-anchor="middle" dy="0.6em">250</text>
+    <text x="109.75" y="134.11" text-anchor="middle" dy="0.6em">500</text>
+    <text x="152.98" y="134.11" text-anchor="middle" dy="0.6em">750</text>
+    <text x="196.2" y="134.11" text-anchor="middle" dy="0.6em">1000</text>
+  </g>
+<g clip-path="url(#img-e8dd9723-4)">
+  <g id="img-e8dd9723-5">
+    <g pointer-events="visible" opacity="1" fill="#FFFFFF" stroke="#000000" stroke-opacity="0.000" class="guide background" id="img-e8dd9723-6">
+      <rect x="21.31" y="10.61" width="176.89" height="122.5"/>
+    </g>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#808080" id="img-e8dd9723-7">
+      <path fill="none" d="M21.31,131.11 L 198.2 131.11"/>
+      <path fill="none" d="M21.31,101.49 L 198.2 101.49"/>
+      <path fill="none" d="M21.31,71.86 L 198.2 71.86"/>
+      <path fill="none" d="M21.31,42.24 L 198.2 42.24"/>
+      <path fill="none" d="M21.31,12.61 L 198.2 12.61"/>
+    </g>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#808080" id="img-e8dd9723-8">
+      <path fill="none" d="M23.31,10.61 L 23.31 133.11"/>
+      <path fill="none" d="M66.53,10.61 L 66.53 133.11"/>
+      <path fill="none" d="M109.75,10.61 L 109.75 133.11"/>
+      <path fill="none" d="M152.98,10.61 L 152.98 133.11"/>
+      <path fill="none" d="M196.2,10.61 L 196.2 133.11"/>
+    </g>
+    <g class="plotpanel" id="img-e8dd9723-9">
+      <g class="geometry color_RGB{Float32}(0.0f0,0.74736935f0,1.0f0)" stroke-width="0.3" stroke="#0096D4" id="img-e8dd9723-10">
+        <path fill="none" d="M39.09,59.45 L 42.09 59.45"/>
+        <path fill="none" d="M56.38,105.12 L 59.38 105.12"/>
+        <path fill="none" d="M73.67,112.88 L 76.67 112.88"/>
+        <path fill="none" d="M90.96,122.61 L 93.96 122.61"/>
+        <path fill="none" d="M108.25,122.59 L 111.25 122.59"/>
+        <path fill="none" d="M125.54,122.75 L 128.54 122.75"/>
+        <path fill="none" d="M142.83,124.58 L 145.83 124.58"/>
+        <path fill="none" d="M160.12,122.75 L 163.12 122.75"/>
+        <path fill="none" d="M177.41,123.37 L 180.41 123.37"/>
+        <path fill="none" d="M194.7,123.37 L 197.7 123.37"/>
+        <path fill="none" d="M40.59,37.47 L 40.59 59.45"/>
+        <path fill="none" d="M57.88,38.01 L 57.88 105.12"/>
+        <path fill="none" d="M75.17,43.29 L 75.17 112.88"/>
+        <path fill="none" d="M92.46,45.41 L 92.46 122.61"/>
+        <path fill="none" d="M109.75,49.58 L 109.75 122.59"/>
+        <path fill="none" d="M127.04,50.01 L 127.04 122.75"/>
+        <path fill="none" d="M144.33,51.44 L 144.33 124.58"/>
+        <path fill="none" d="M161.62,50.31 L 161.62 122.75"/>
+        <path fill="none" d="M178.91,50.58 L 178.91 123.37"/>
+        <path fill="none" d="M196.2,50.58 L 196.2 123.37"/>
+        <path fill="none" d="M39.09,37.47 L 42.09 37.47"/>
+        <path fill="none" d="M56.38,38.01 L 59.38 38.01"/>
+        <path fill="none" d="M73.67,43.29 L 76.67 43.29"/>
+        <path fill="none" d="M90.96,45.41 L 93.96 45.41"/>
+        <path fill="none" d="M108.25,49.58 L 111.25 49.58"/>
+        <path fill="none" d="M125.54,50.01 L 128.54 50.01"/>
+        <path fill="none" d="M142.83,51.44 L 145.83 51.44"/>
+        <path fill="none" d="M160.12,50.31 L 163.12 50.31"/>
+        <path fill="none" d="M177.41,50.58 L 180.41 50.58"/>
+        <path fill="none" d="M194.7,50.58 L 197.7 50.58"/>
+      </g>
+      <g class="geometry" id="img-e8dd9723-11">
+        <g class="color_RGBA{Float32}(0.0f0,0.74736935f0,1.0f0,1.0f0)" stroke="#FFFFFF" stroke-width="0.3" fill="#00BFFF" id="img-e8dd9723-12">
+          <use xlink:href="#img-e8dd9723-13" x="40.59" y="48.46"/>
+          <use xlink:href="#img-e8dd9723-13" x="57.88" y="71.57"/>
+          <use xlink:href="#img-e8dd9723-13" x="75.17" y="78.08"/>
+          <use xlink:href="#img-e8dd9723-13" x="92.46" y="84.01"/>
+          <use xlink:href="#img-e8dd9723-13" x="109.75" y="86.08"/>
+          <use xlink:href="#img-e8dd9723-13" x="127.04" y="86.38"/>
+          <use xlink:href="#img-e8dd9723-13" x="144.33" y="88.01"/>
+          <use xlink:href="#img-e8dd9723-13" x="161.62" y="86.53"/>
+          <use xlink:href="#img-e8dd9723-13" x="178.91" y="86.97"/>
+          <use xlink:href="#img-e8dd9723-13" x="196.2" y="86.97"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#000000" id="img-e8dd9723-14">
+    <text x="20.3" y="131.11" text-anchor="end" dy="0.35em">400</text>
+    <text x="20.3" y="101.49" text-anchor="end" dy="0.35em">600</text>
+    <text x="20.3" y="71.86" text-anchor="end" dy="0.35em">800</text>
+    <text x="20.3" y="42.24" text-anchor="end" dy="0.35em">1000</text>
+    <text x="20.3" y="12.61" text-anchor="end" dy="0.35em">1200</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#000000" stroke="#000000" stroke-opacity="0.000" id="img-e8dd9723-15">
+    <text x="8.81" y="69.86" text-anchor="middle" dy="0.35em" transform="rotate(-90, 8.81, 71.86)">generation number</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#000000" stroke="#000000" stroke-opacity="0.000" id="img-e8dd9723-16">
+    <text x="109.75" y="5" text-anchor="middle" dy="0.6em">meanvalue</text>
+  </g>
+</g>
+<defs>
+  <clipPath id="img-e8dd9723-4">
+  <path d="M21.31,10.61 L 198.2 10.61 198.2 133.11 21.31 133.11" />
+</clipPath>
+  <g id="img-e8dd9723-13">
+    <circle cx="0" cy="0" r="0.9"/>
+  </g>
+</defs>
+</svg>

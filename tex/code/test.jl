@@ -23,19 +23,29 @@ lowlight_opacity=0.9 )
 
 
 # #simulate pure genetic drift
-# function gen_drift_p(M::Matrix, N::Integer, number::Integer)
+# function gen_drift_p(M::Matrix, N::Integer)
 #
 # end
 
-function gen_drift_m(M::Matrix, N::Integer,number::Integer, μ::Float16)
+function simulation(M::Matrix, N::Integer, μ::Float64)
 
-  function simulation()
+  function gen_drift(M::Matrix, N::Integer, μ::Float64)
     row=size(M,1)
     col=size(M,2)
-    μ=0.001 #mutationrate
-
+    #mutationrate
     if μ==0
       M[:,1] = N/2
+
+
+      Matrix = [M[rep, gen-1]/10 for rep in 1:rep_nb for gen in 2:generation]
+
+
+
+      A= rand(Binomial(N,p)
+
+      M[rep,gen]=A
+
+
       for rep in 1:rep_nb
         for gen in 2:generation
           #next generation will have random number of individuals A with probability of current generation
@@ -55,7 +65,7 @@ function gen_drift_m(M::Matrix, N::Integer,number::Integer, μ::Float16)
       end
       #plotting window (module @layers using ColorBrewer using Gadfly end...???)
       colors = palette("Spectral", 11)
-      lay =[layer(x=1:generation, y=M[i,:], Geom.path,Theme(default_color=colors[i])) for i in 1:number] #Guide.manual_color_key("legend for plot", ["1","2"]["deepskyblue", "orange"])
+      lay =[layer(x=1:generation, y=M[i,:], Geom.path,Theme(default_color=colors[i])) for i in 1:10] #Guide.manual_color_key("legend for plot", ["1","2"]["deepskyblue", "orange"])
 
       #plot
       plt=plot(lay... , Guide.title("genetic drift"),  Guide.XLabel("generation number"),Guide.YLabel("population number"),blankTheme )
@@ -73,7 +83,7 @@ function gen_drift_m(M::Matrix, N::Integer,number::Integer, μ::Float16)
           a_p=rand(Poisson(μ*a))
           b=N-M[rep,gen-1]
           b_p=rand(Poisson(μ*b))
-          mutate = b_p-a_p
+          mutate(x) = b_p-a_p
           M[rep,gen]=M[rep,gen-1]+mutate
 
           #genetic drift loop
@@ -92,7 +102,7 @@ function gen_drift_m(M::Matrix, N::Integer,number::Integer, μ::Float16)
 
       #plotting window (module @layers using ColorBrewer... color.jl???)
       colors = palette("Spectral", 11)
-      lay =[layer(x=1:col, y=M[i,:], Geom.path,Theme(default_color=colors[i])) for i in 1:number] #Guide.manual_color_key("legend for plot", ["1","2"]["deepskyblue", "orange"])
+      lay =[layer(x=1:col, y=M[i,:], Geom.path,Theme(default_color=colors[i])) for i in 1:10] #Guide.manual_color_key("legend for plot", ["1","2"]["deepskyblue", "orange"])
       #plot
       plt=plot(lay... , Guide.title("genetic drift with mutationrate μ = $μ "),  Guide.XLabel("generation number"),Guide.YLabel("population size"),blankTheme )
 
@@ -107,10 +117,11 @@ function gen_drift_m(M::Matrix, N::Integer,number::Integer, μ::Float16)
       img = PDF("image/GenDrift_mutation/$N mutation_rate_$μ .pdf", 8inch, 6inch) #name of image
       draw(img, vstack(plt,plt_h)) #save both plots in one image
 
-      return M
+      return gen_drift(...)
     end
+    return M
   #
-  #   function get_data_m(df::DataFrame, )
+  #   function get_data_m(M::Matrix, df::DataFrame)
   #     if nrow(df) >0
   #       deleterows!(df, 1:nrow(df))
   #     end
@@ -126,6 +137,7 @@ function gen_drift_m(M::Matrix, N::Integer,number::Integer, μ::Float16)
   #     return df, M
   #   end
   # end
+
 end
 
 
@@ -143,17 +155,16 @@ end
     #         Geom.point, Geom.errorbar, Guide.title("meanvalue of generation for extinction/fixation depending on population size"), Guide.XLabel("population size"), Guide.YLabel("generation number"), blankTheme)
     #    img= SVG("image/GenDrift_pure/mean.svg", 8inch, 6inch)
     #    draw(img, plt_m)
-    #    return df
+    #    return gen_drift_m(...);
     # end
-
+#return get_data_p()
     #for genetic drift with mutation#
+#
+#     return gen_drift(...), println("image for mutationrate $μ saved")
+# end
 
-    return M, df,  println("image for mutationrate $μ saved")
-end
 
-get_data_m(ev_data)
 
-plot(ev_data, x="x2", Geom.density, Guide.title("Boxplot of mean value fixation occurs" , Guide.XLabel("population size"), blankTheme)
-f=convert(Array{Integer}, generation_vector)
+simulation(matrix_mutation,1030,0.031)
 
-gen_drift_m(matrix_mutation,100,10,0.01)
+@time simulation(matrix_mutation, 1900, 0.0012)

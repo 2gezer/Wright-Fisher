@@ -36,13 +36,8 @@ function simulation(M::Matrix, N::Integer, μ::Float64)
     #mutationrate
     if μ==0
       M[:,1] = N/2
-<<<<<<< HEAD
       for rep in 1:row
         for gen in 2:col
-=======
-      for rep in 1:rep_nb
-        for gen in 2:generation
->>>>>>> 05c5e6327e2eeb4b8bcc47ab220329e4d36476b1
           #next generation will have random number of individuals A with probability of current generation
           p= M[rep,gen-1]/N
           A= rand(Binomial(N,p))
@@ -118,7 +113,6 @@ function simulation(M::Matrix, N::Integer, μ::Float64)
     return @time gen_drift()
   end
 
-<<<<<<< HEAD
  @time gen_drift(EM, 100, 0.00002)
 
   #run gen_drift several times for statistics
@@ -135,22 +129,6 @@ function simulation(M::Matrix, N::Integer, μ::Float64)
       for μ in 0:10.0^(-10):10.0^(-9)
       gen_drift(EM,N,μ)
       push!(ev_data, [N  μ floor(mean(generation_vector)) std(generation_vector) var(generation_vector)])
-=======
- @time gen_drift(EM, 100, 0.0012)
-
-  #run gen_drift several times for statistics
-
-
-  function get_data(M::Array{Float64,2},  μ::Float64(x, [RoundingMode])) FloatRange
-    T=M
-    if nrow(ev_data) >0
-      deleterows!(ev_data, 1:nrow(ev_data))
-    end
-    for i in 100:100:1000
-      for j in 0:0.00002:0.001
-      gen_drift(EM,i,j)
-      push!(ev_data, [i  μ floor(mean(generation_vector)) std(generation_vector) var(generation_vector)])
->>>>>>> 05c5e6327e2eeb4b8bcc47ab220329e4d36476b1
     end
     end
 
@@ -161,7 +139,6 @@ function simulation(M::Matrix, N::Integer, μ::Float64)
     else img= PDF("image/GenDrift_mutation/mean.pdf", 8inch, 6inch)
     end
     draw(img, plt_data)
-<<<<<<< HEAD
     return get_data()
   end
 
@@ -173,15 +150,6 @@ get_data
     println("Test")
 catch ErrorException
 end
-=======
-    return @time get_data()
-  end
-  @time get_data(EM)
-  ##use try
-  ##        catch
-  ##function!!!
-
->>>>>>> 05c5e6327e2eeb4b8bcc47ab220329e4d36476b1
 end
 
 # #evaluate data for pure genetic drift

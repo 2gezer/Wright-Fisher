@@ -1,18 +1,14 @@
-using Gadfly
-using Distributions
-using ColorBrewer
-using DataFrames
+using Gadfly, Distributions, ColorBrewer, DataFrames
 
 
+# 2-D Evolution Matrix
 generation = 500 #  number of generations
-rep_nb= 100      # number of repetitions
-generation_vector = zeros(rep_nb,1) #timevector t=(x1,x2,...,xN)
-EM= zeros(rep_nb,generation) #evolution matrix for genetic drift
+repNum= 100      # number of repetitions
+genVec = zeros(repNum,1) #timevector t=(x1,x2,...,xN)
+EM= zeros(repNum,generation) #evolution matrix
 
-EvolutionMatrix= zeros(rep_nb, generation)
-@time EM= copy(EvolutionMatrix)
 #create dataframe for statistics
-ev_data = DataFrame(Any[Pop_size=Float64[], mean_gen=Float64[], std_gen=Float64[], var_gen=Float64[], mute_rate=Float64[]])
+evoDf = DataFrame(Any[popSize=Float64[], meanGen=Float64[], std_gen=Float64[], var_gen=Float64[], mute_rate=Float64[]])
 
 #plotting table
 blankTheme = Theme(
@@ -29,6 +25,8 @@ lowlight_opacity=0.9 )
 # end
 
 function simulation(M::Matrix, N::Integer, μ::Float64)
+  println(typeof(M), typeof(N), typeof(μ))
+
 
   function gen_drift(M::Matrix, N::Integer, μ::Float64)
     row=size(M,1)
@@ -47,7 +45,7 @@ function simulation(M::Matrix, N::Integer, μ::Float64)
 
           #save the generation number and break if extinction/fixation occurs
           if M[rep,gen]==0 || M[rep,gen]==N
-            generation_vector[rep]= gen
+            genVec[rep]= gen
             M[rep,gen+1:generation]= NaN
             break
           end
@@ -84,7 +82,7 @@ function simulation(M::Matrix, N::Integer, μ::Float64)
           M[rep,gen]=A
           #count extinction/fixation
           if M[rep,gen]==0 || M[rep,gen]==N
-            generation_vector[rep]= gen
+            genVec[rep]= gen
 
           end
         end
@@ -109,73 +107,46 @@ function simulation(M::Matrix, N::Integer, μ::Float64)
       return M
     end
 
-    return gen_drift(), M, generation_vector
-    return @time gen_drift()
+    return gen_drift(), M, genVec
   end
 
- @time gen_drift(EM, 100, 0.00002)
+  @time gen_drift(EM, 100, 0.00002)
 
   #run gen_drift several times for statistics
   ##use try
   ##        catch
   ##function!!!
 
-  function get_data(M::Array{Float64,2}, N::Integer, μ::Float64)      #Float64(x, [, mode::RoundingMode])) FloatRange?
+  function get_data(M::Matrix)      #Float64(x, [, mode::RoundingMode])) FloatRange?
 
-    if nrow(ev_data) >0
-      deleterows!(ev_data, 1:nrow(ev_data))
+    if nrow(evoDf) >0
+      deleterows!(evoDf, 1:nrow(evoDf))
     end
     for N in 100:100:1000
       for μ in 0:10.0^(-10):10.0^(-9)
-      gen_drift(EM,N,μ)
-      push!(ev_data, [N  μ floor(mean(generation_vector)) std(generation_vector) var(generation_vector)])
+        gen_drift(EM,N,μ)
+        push!(evoDf, [N  μ floor(mean(genVec)) std(genVec) var(genVec)])
+      end
     end
-    end
+println(evoDf)
 
-    plt_data=plot(ev_data, x=ev_data[1], y=ev_data[2], ymin=ev_data[2]-ev_data[3], ymax=ev_data[2]+ev_data[3],
+    plt_data=plot(evoDf, x=evoDf[2], y=evoDf[1], ymin=evoDf[2]-evoDf[3], ymax=evoDf[2]+evoDf[3],
     Geom.point, Geom.line,  Geom.errorbar, Guide.title("meanvalue of generation for extinction/fixation depending on population size"), Guide.XLabel("population size"), Guide.YLabel("generation number"), blankTheme)
-    if μ==0
-      img= PDF("image/GenDrift_pure/mean.pdf", 8inch, 6inch)
-    else img= PDF("image/GenDrift_mutation/mean.pdf", 8inch, 6inch)
-    end
+    img= PDF("image/GenDrift_mutation/mean.pdf", 8inch, 6inch)
     draw(img, plt_data)
-    return get_data()
+    return draw(img, plt_data)
   end
 
-get_data
+get_data(EM)
+  println("result")
 
+  # try
+  #   @time get_data(EM)
+  #
+  # catch ErrorException
+  #   println("get_data throughs ErrorException :(")
+  # end
 
-  try
-    @time get_data(EM)
-    println("Test")
-catch ErrorException
 end
-end
-
-# #evaluate data for pure genetic drift
-# function get_data_p(df::DataFrame)
-#  if nrow(df) >0
-#    deleterows!(df, 1:nrow(df))
-#  end
-#  for i in 100:100:1000
-#     gen_drift_m(EM,i,10)
-#      push!(df, [i floor(mean(generation_vector)) std(generation_vector)])
-#    end
-#
-#    plt_m=plot(ev_data, x=ev_data[1], y=ev_data[2], ymin=ev_data[2]-ev_data[3], ymax=ev_data[2]+ev_data[3],
-#         Geom.point, Geom.errorbar, Guide.title("meanvalue of generation for extinction/fixation depending on population size"), Guide.XLabel("population size"), Guide.YLabel("generation number"), blankTheme)
-#    img= SVG("image/GenDrift_pure/mean.svg", 8inch, 6inch)
-#    draw(img, plt_m)
-#    return gen_drift_m(...);
-# end
-#return get_data_p()
-#for genetic drift with mutation#
-#
-#     return gen_drift(...), println("image for mutationrate $μ saved")
-# end
-
-
-
-#simulation(EM,1030,0.042)
 
 @time simulation(EM, 100, 0.0012)

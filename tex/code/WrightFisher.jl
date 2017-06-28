@@ -8,7 +8,7 @@ genVec = zeros(repNum,1) #timevector t=(x1,x2,...,xN)
 EM= zeros(repNum,generation) #evolution matrix
 
 #create dataframe for statistics
-evoDf = DataFrame(Any[popSize=Float64[], meanGen=Float64[], std_gen=Float64[], var_gen=Float64[], mute_rate=Float64[]])
+evoDf = DataFrame(Any[popSize=Float64[], A_types=Integer[], meanGen=Float64[], std_gen=Float64[], var_gen=Float64[], mute_rate=Float64[]])
 
 #plotting table
 blankTheme = Theme(
@@ -118,23 +118,26 @@ function simulation(M::Matrix, N::Integer, μ::Float64)
   ##function!!!
 
   function get_data(M::Matrix)      #Float64(x, [, mode::RoundingMode])) FloatRange?
-
+    c=Integer(floor(mean(genVec)))
+    d=Integer(floor(mean(EM[:,c])))
     if nrow(evoDf) >0
       deleterows!(evoDf, 1:nrow(evoDf))
     end
     for N in 100:100:1000
-      for μ in 0:10.0^(-10):10.0^(-9)
+      for μ in 10.0^(-7):10.0^(-10):10.0^(-9)
         gen_drift(EM,N,μ)
-        push!(evoDf, [N  μ floor(mean(genVec)) std(genVec) var(genVec)])
+        push!(evoDf, [N d μ c std(genVec) var(genVec)])
+        println(μ)
       end
     end
-println(evoDf)
 
-    plt_data=plot(evoDf, x=evoDf[2], y=evoDf[1], ymin=evoDf[2]-evoDf[3], ymax=evoDf[2]+evoDf[3],
+writetable("output.txt", evoDf, separator = ',', header = true)
+
+    plt_data=plot(evoDf, x=evoDf[1], y=evoDf[1], ymin=evoDf[2]-evoDf[3], ymax=evoDf[2]+evoDf[3],
     Geom.point, Geom.line,  Geom.errorbar, Guide.title("meanvalue of generation for extinction/fixation depending on population size"), Guide.XLabel("population size"), Guide.YLabel("generation number"), blankTheme)
     img= PDF("image/GenDrift_mutation/mean.pdf", 8inch, 6inch)
     draw(img, plt_data)
-    return draw(img, plt_data)
+    return get_data()
   end
 
 get_data(EM)
